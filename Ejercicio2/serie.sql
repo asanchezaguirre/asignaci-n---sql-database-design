@@ -1,0 +1,43 @@
+CREATE DATABASE asanchezaguirre;
+
+USE asanchezaguirre;
+
+CREATE TABLE Actor(
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE Serie(
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR (100) NOT NULL,
+    Duration INT(10)
+);
+
+CREATE TABLE Director(
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR (400) NOT NULL
+);
+
+CREATE TABLE Casting(
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ActorId INT,
+    FOREIGN KEY (ActorId) REFERENCES Actor(Id)
+);
+
+CREATE TABLE Episodio(
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR (300) NOT NULL,
+    DirectorId INT,
+    SerieId INT,
+    CastingId INT,
+    FOREIGN KEY (DirectorId) REFERENCES Director (Id),
+	FOREIGN KEY (SerieId) REFERENCES Serie (Id),
+	FOREIGN KEY (CastingId) REFERENCES Casting (Id)
+);
+
+CREATE TABLE Transmision(
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Horario DATE NOT NULL,
+    EpisodioId INT,
+    FOREIGN KEY (EpisodioId) REFERENCES Episodio(Id)
+);
